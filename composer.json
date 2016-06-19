@@ -1,0 +1,21 @@
+{
+    "name": "luckynail/simple-cache",
+    "description": "",
+    "license": "MIT",
+    "keywords": ["cache", "text", "simple"],
+    "authors": [
+        {
+            "name": "Felix Nagel",
+            "email": "ElfixLange@gmail.com"
+        }
+    ],
+    "require": {
+        "luckynail/helper": "*"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "LuckyNail\\SimpleCache\\": "src"
+        }
+    }
+}
