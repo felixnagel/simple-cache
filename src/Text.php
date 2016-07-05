@@ -4,8 +4,8 @@ namespace LuckyNail\SimpleCache;
 use LuckyNail\Helper;
 
 class Text{
-	private $_sFolderPath;
-	private $_iExpiresInHours;
+	protected $_sFolderPath;
+	protected $_iExpiresInHours;
 	public function __construct($sFolderPath, $iExpiresInHours = 0){
 		$this->_sFolderPath = $sFolderPath;
 		$this->_iExpiresInHours = $iExpiresInHours;
@@ -15,16 +15,20 @@ class Text{
 	}
 	public function is_cached($sRequestId){
 		$sFilePath = $this->_sFolderPath.DIRECTORY_SEPARATOR.$sRequestId;
-		if(file_exists($sFilePath)){
-	     	$iFiletime = filemtime($sFilePath);
-	     	$iAgeHours = (time() - $iFiletime) / 3600;
-	     	if($iAgeHours >= $this->_iExpiresInHours){
-	     		unlink($sFilePath);
-	     	}else{
-	     		return true;
-	     	}
-	    }
-    	return false;
+		if(!file_exists($sFilePath)){
+    		return false;
+		}
+	    if($this->_iExpiresInHours === false){
+ 			return true;
+	   	}
+	   	$iFiletime = filemtime($sFilePath);
+	    $iAgeHours = (time() - $iFiletime) / 3600;
+	    if($iAgeHours >= $this->_iExpiresInHours){
+	    	unlink($sFilePath);
+	    	return false;
+     	}else{
+     		return true;
+     	}
 	}
 	public function read($sRequestId){
 		if($this->is_cached($sRequestId)){
