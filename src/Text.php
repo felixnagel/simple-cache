@@ -6,7 +6,6 @@ use LuckyNail\Helper;
 class Text{
 	private $_sFolderPath;
 	private $_iExpiresInHours;
-
 	public function __construct($sFolderPath, $iExpiresInHours = 0){
 		$this->_sFolderPath = $sFolderPath;
 		$this->_iExpiresInHours = $iExpiresInHours;
@@ -14,11 +13,11 @@ class Text{
 			mkdir($sFolderPath, 0755, true);
 		}
 	}
-
 	public function is_cached($sRequestId){
 		$sFilePath = $this->_sFolderPath.DIRECTORY_SEPARATOR.$sRequestId;
 		if(file_exists($sFilePath)){
-	     	$iAgeHours = (time() - filemtime($sFilePath)) / (60*60);
+	     	$iFiletime = filemtime($sFilePath);
+	     	$iAgeHours = (time() - $iFiletime) / 3600;
 	     	if($iAgeHours >= $this->_iExpiresInHours){
 	     		unlink($sFilePath);
 	     	}else{
@@ -27,7 +26,6 @@ class Text{
 	    }
     	return false;
 	}
-
 	public function read($sRequestId){
 		if($this->is_cached($sRequestId)){
 			$sFilePath = $this->_sFolderPath.DIRECTORY_SEPARATOR.$sRequestId;
@@ -36,7 +34,6 @@ class Text{
 			return false;
 		}
 	}
-
 	public function write($sRequestId, $sContent){
 		$sFilePath = $this->_sFolderPath.DIRECTORY_SEPARATOR.$sRequestId;
 		file_put_contents($sFilePath, $sContent);
