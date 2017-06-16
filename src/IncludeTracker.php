@@ -14,9 +14,13 @@ class IncludeTracker extends Text{
 			$sOldFiles = $this->read($this->_sId);
 			if($sOldFiles !== false){
 				$aOldFiles = json_decode($sOldFiles);
+				if(!is_array($aOldFiles)){
+					$aOldFiles = ['__err' => 'cached data was no array at '.date().'.'];
+				}
 				$aNewFiles = array_merge($aOldFiles, $aNewFiles);
 			}
 			$aNewFiles = array_values(array_unique($aNewFiles));
+			
 			$this->write($this->_sId, json_encode($aNewFiles));
 		});
 	}
