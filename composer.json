@@ -9,9 +9,7 @@
             "email": "ElfixLange@gmail.com"
         }
     ],
-    "require": {
-        "luckynail/helper": "0.0.*"
-    },
+    "require": {},
     "require-dev": {},
     "autoload": {
         "psr-4": {

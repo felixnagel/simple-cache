@@ -1,8 +1,5 @@
 <?php 
-
 namespace LuckyNail\SimpleCache;
-use LuckyNail\Helper;
-
 class Text{
 	protected $_sFolderPath;
 	protected $_iExpiresInHours;

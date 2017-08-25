@@ -1,7 +1,5 @@
 <?php 
-
 namespace LuckyNail\SimpleCache;
-
 class IncludeTracker extends Text{
 	private $_sId;
 	public function __construct($sFolderPath, $sId){
